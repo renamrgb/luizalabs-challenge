@@ -1,0 +1,16 @@
+# All files are checked into the repo with LF
+* text=auto
+
+# Define arquivos que devem ser tratados como binários
+*.jpg binary
+*.png binary
+*.pdf binary
+
+# Define arquivos que devem ser tratados como linguagem de programação específica
+*.java linguist-language=Java
+
+# These files are checked out using LF locally
+*.sh eol=lf
+
+# These files are checked out using CRLF locally
+*.bat eol=crlf

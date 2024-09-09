@@ -1,0 +1,36 @@
+# Arquivo .editorconfig para o projeto
+
+[*]
+# Define o charset para UTF-8
+charset = utf-8
+# Remove espaços em branco no final de cada linha
+trim_trailing_whitespace = true
+# Garante uma linha vazia no final do arquivo
+insert_final_newline = true
+# Define o estilo de fim de linha como LF (Line Feed)
+end_of_line = lf
+
+# Estilo de identação para arquivos Java
+[*.java]
+indent_style = space
+indent_size = 4
+
+# Estilo de identação para arquivos de propriedades
+[*.properties]
+indent_style = space
+indent_size = 4
+
+# Estilo de identação para arquivos Markdown
+[*.md]
+indent_style = space
+indent_size = 2
+
+# Estilo de identação para arquivos YML
+[*.yml]
+indent_style = space
+indent_size = 2
+
+# Estilo de identação para arquivos YAML
+[*.yaml]
+indent_style = space
+indent_size = 2
