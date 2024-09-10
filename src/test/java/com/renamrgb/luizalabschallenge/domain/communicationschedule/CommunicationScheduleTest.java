@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class CommunicationScheduleTest {
 
 
-
     @Test
     void givenAValidInput_whenCallNewInstance_thenReturnInstance() {
         String destination = "destination";
@@ -24,6 +23,24 @@ class CommunicationScheduleTest {
             () -> assertEquals(type, result.getCommunicationType()),
             () -> assertEquals(type, result.getCommunicationType()),
             () -> assertEquals(CommunicationScheduleStatus.PENDING, result.getStatus())
+        );
+    }
+
+    @Test
+    void givenAValidParameters_whenCallOf_thenReturnInstance() {
+        Long id = 1L;
+        String destination = "destination";
+        String message = "message";
+        CommunicationScheduleType type = CommunicationScheduleType.SMS;
+        CommunicationScheduleStatus status = CommunicationScheduleStatus.PENDING;
+
+        CommunicationSchedule result = CommunicationSchedule.of(id, destination, message, type, status);
+        assertAll(
+            () -> assertEquals(id, result.getId()),
+            () -> assertEquals(destination, result.getDestination()),
+            () -> assertEquals(message, result.getMessage()),
+            () -> assertEquals(type, result.getCommunicationType()),
+            () -> assertEquals(status, result.getStatus())
         );
     }
 

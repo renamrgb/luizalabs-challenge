@@ -39,6 +39,16 @@ public class CommunicationSchedule {
             CommunicationScheduleStatus.PENDING);
     }
 
+    public static CommunicationSchedule of(
+        final Long id,
+        final String destination,
+        final String message,
+        final CommunicationScheduleType communicationType,
+        final CommunicationScheduleStatus status
+    ) {
+        return new CommunicationSchedule(id, destination, message, communicationType, status);
+    }
+
     public Long getId() {
         return id;
     }
@@ -72,15 +82,8 @@ public class CommunicationSchedule {
         validationDestinationConstraints(errors);
         validateMessageConstraints(errors);
         validationCommunicationTypeConstraints(errors);
-        validationStatusConstraints(errors);
         if (!errors.isEmpty()) {
             throw BusinessValidationException.with(errors);
-        }
-    }
-
-    private void validationStatusConstraints(List<ErrorMessage> errors) {
-        if (this.status == null) {
-            errors.add(new ErrorMessage("status", "Status is required"));
         }
     }
 
