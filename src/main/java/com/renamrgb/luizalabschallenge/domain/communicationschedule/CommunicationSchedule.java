@@ -122,8 +122,8 @@ public class CommunicationSchedule implements Serializable {
         if (this.message == null || this.message.isBlank()) {
             errors.add(new ErrorMessage("message", "Message is required"));
         } else {
-            final int messageLenght = this.message.trim().length();
-            if (messageLenght < 5 || messageLenght > 5000) {
+            final int messageLength = this.message.trim().length();
+            if (messageLength < 5 || messageLength > 5000) {
                 errors.add(new ErrorMessage("message", "Message must be between 5 and 5000"));
             }
         }
