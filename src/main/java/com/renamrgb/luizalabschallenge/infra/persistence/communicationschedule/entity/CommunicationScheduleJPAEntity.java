@@ -13,6 +13,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
+import java.time.ZonedDateTime;
+
 @Entity
 @Table(name = "communication_scheduler")
 public class CommunicationScheduleJPAEntity {
@@ -36,6 +38,9 @@ public class CommunicationScheduleJPAEntity {
     @Enumerated(EnumType.STRING)
     private CommunicationScheduleStatus status;
 
+    @Column(name = "schedule_date", nullable = false)
+    private ZonedDateTime scheduleDate;
+
     public CommunicationScheduleJPAEntity() {
     }
 
@@ -44,6 +49,7 @@ public class CommunicationScheduleJPAEntity {
         entity.setId(communicationSchedule.getId());
         entity.setDestination(communicationSchedule.getDestination());
         entity.setMessage(communicationSchedule.getMessage());
+        entity.setScheduleDate(communicationSchedule.getScheduleDate());
         entity.setCommunicationType(communicationSchedule.getCommunicationType());
         entity.setStatus(communicationSchedule.getStatus());
         return entity;
@@ -54,6 +60,7 @@ public class CommunicationScheduleJPAEntity {
             id,
             destination,
             message,
+            scheduleDate,
             communicationType,
             status
         );
@@ -97,5 +104,13 @@ public class CommunicationScheduleJPAEntity {
 
     public void setStatus(CommunicationScheduleStatus status) {
         this.status = status;
+    }
+
+    public ZonedDateTime getScheduleDate() {
+        return scheduleDate;
+    }
+
+    public void setScheduleDate(ZonedDateTime scheduleDate) {
+        this.scheduleDate = scheduleDate;
     }
 }

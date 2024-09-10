@@ -3,25 +3,30 @@ package com.renamrgb.luizalabschallenge.domain.communicationschedule;
 import com.renamrgb.luizalabschallenge.domain.exceptions.BusinessValidationException;
 import com.renamrgb.luizalabschallenge.domain.exceptions.ErrorMessage;
 
+import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommunicationSchedule {
+public class CommunicationSchedule implements Serializable {
 
     private Long id;
     private String destination;
     private String message;
     private CommunicationScheduleType communicationType;
     private CommunicationScheduleStatus status;
+    private ZonedDateTime scheduleDate;
 
     private CommunicationSchedule(final Long id,
                                   final String destination,
                                   final String message,
+                                  final ZonedDateTime scheduleDate,
                                   final CommunicationScheduleType communicationType,
                                   final CommunicationScheduleStatus status) {
         this.id = id;
         this.destination = destination;
         this.message = message;
+        this.scheduleDate = scheduleDate;
         this.communicationType = communicationType;
         this.status = status;
         validate();
@@ -30,11 +35,13 @@ public class CommunicationSchedule {
     public static CommunicationSchedule newInstance(
         final String destination,
         final String message,
+        final ZonedDateTime scheduleDate,
         final CommunicationScheduleType communicationType
     ) {
         return new CommunicationSchedule(null,
             destination,
             message,
+            scheduleDate,
             communicationType,
             CommunicationScheduleStatus.PENDING);
     }
@@ -43,10 +50,11 @@ public class CommunicationSchedule {
         final Long id,
         final String destination,
         final String message,
+        final ZonedDateTime scheduleDate,
         final CommunicationScheduleType communicationType,
         final CommunicationScheduleStatus status
     ) {
-        return new CommunicationSchedule(id, destination, message, communicationType, status);
+        return new CommunicationSchedule(id, destination, message, scheduleDate, communicationType, status);
     }
 
     public Long getId() {
@@ -69,6 +77,10 @@ public class CommunicationSchedule {
         return status;
     }
 
+    public ZonedDateTime getScheduleDate() {
+        return scheduleDate;
+    }
+
     /**
      * Valida a instância atual da classe Pensando que em um dominio rico a propria class deve saber se validar.
      *
@@ -82,8 +94,15 @@ public class CommunicationSchedule {
         validationDestinationConstraints(errors);
         validateMessageConstraints(errors);
         validationCommunicationTypeConstraints(errors);
+        validateScheduleDateConstraints(errors);
         if (!errors.isEmpty()) {
             throw BusinessValidationException.with(errors);
+        }
+    }
+
+    private void validateScheduleDateConstraints(List<ErrorMessage> errors) {
+        if(this.scheduleDate == null) {
+            errors.add(new ErrorMessage("scheduleDate", "Scheduledate is required"));
         }
     }
 

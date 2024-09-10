@@ -4,5 +4,5 @@ import com.renamrgb.luizalabschallenge.domain.communicationschedule.Communicatio
 
 public interface CreateCommunicationScheduleUseCase {
 
-    void execute(CommunicationSchedule communicationSchedule);
+    CommunicationSchedule execute(CommunicationSchedule communicationSchedule);
 }

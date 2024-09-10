@@ -20,8 +20,9 @@ public class CreateCommunicationScheduleUseCaseImpl implements CreateCommunicati
     }
 
     @Override
-    public void execute(final CommunicationSchedule communicationSchedule) {
+    public CommunicationSchedule execute(final CommunicationSchedule communicationSchedule) {
         CommunicationSchedule savedCommunicationScheduler = communicationSchedulerGateway.save(communicationSchedule);
         eventEmitter.send(savedCommunicationScheduler);
+        return savedCommunicationScheduler;
     }
 }

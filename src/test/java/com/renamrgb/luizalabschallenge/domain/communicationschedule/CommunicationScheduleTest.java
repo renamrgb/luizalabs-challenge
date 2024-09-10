@@ -4,6 +4,8 @@ import com.renamrgb.luizalabschallenge.domain.exceptions.BusinessValidationExcep
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.time.ZonedDateTime;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class CommunicationScheduleTest {
@@ -14,7 +16,8 @@ class CommunicationScheduleTest {
         String destination = "destination";
         String message = "message";
         CommunicationScheduleType type = CommunicationScheduleType.EMAIL;
-        CommunicationSchedule result = CommunicationSchedule.newInstance(destination, message, type);
+        ZonedDateTime date = ZonedDateTime.parse("2024-09-10T10:15:00Z");
+        CommunicationSchedule result = CommunicationSchedule.newInstance(destination, message, date, type);
 
         assertAll(
             () -> assertNull(result.getId()),
@@ -33,8 +36,9 @@ class CommunicationScheduleTest {
         String message = "message";
         CommunicationScheduleType type = CommunicationScheduleType.SMS;
         CommunicationScheduleStatus status = CommunicationScheduleStatus.PENDING;
+        ZonedDateTime date = ZonedDateTime.parse("2024-09-10T10:15:00Z");
 
-        CommunicationSchedule result = CommunicationSchedule.of(id, destination, message, type, status);
+        CommunicationSchedule result = CommunicationSchedule.of(id, destination, message, date, type, status);
         assertAll(
             () -> assertEquals(id, result.getId()),
             () -> assertEquals(destination, result.getDestination()),
@@ -46,7 +50,8 @@ class CommunicationScheduleTest {
 
     @Test
     void givenAInvalidNullDestination_whenCallNewInstance_thenThrowsBusinessValidationException() {
-        BusinessValidationException result = assertThrows(BusinessValidationException.class, () -> CommunicationSchedule.newInstance(null, "message", CommunicationScheduleType.SMS));
+        ZonedDateTime date = ZonedDateTime.parse("2024-09-10T10:15:00Z");
+        BusinessValidationException result = assertThrows(BusinessValidationException.class, () -> CommunicationSchedule.newInstance(null, "message", date, CommunicationScheduleType.SMS));
 
         Assertions.assertEquals(1, result.getErrors().size());
         Assertions.assertEquals("destination", result.getErrors().get(0).field());
@@ -55,7 +60,8 @@ class CommunicationScheduleTest {
 
     @Test
     void givenAInvalidEmptyDestination_whenCallNewInstance_thenThrowsBusinessValidationException() {
-        BusinessValidationException result = assertThrows(BusinessValidationException.class, () -> CommunicationSchedule.newInstance("", "message", CommunicationScheduleType.SMS));
+        ZonedDateTime date = ZonedDateTime.parse("2024-09-10T10:15:00Z");
+        BusinessValidationException result = assertThrows(BusinessValidationException.class, () -> CommunicationSchedule.newInstance("", "message", date, CommunicationScheduleType.SMS));
 
         Assertions.assertEquals(1, result.getErrors().size());
         Assertions.assertEquals("destination", result.getErrors().get(0).field());
@@ -64,7 +70,8 @@ class CommunicationScheduleTest {
 
     @Test
     void givenAInvalidBlankDestination_whenCallNewInstance_thenThrowsBusinessValidationException() {
-        BusinessValidationException result = assertThrows(BusinessValidationException.class, () -> CommunicationSchedule.newInstance(" ", "message", CommunicationScheduleType.SMS));
+        ZonedDateTime date = ZonedDateTime.parse("2024-09-10T10:15:00Z");
+        BusinessValidationException result = assertThrows(BusinessValidationException.class, () -> CommunicationSchedule.newInstance(" ", "message", date, CommunicationScheduleType.SMS));
 
         Assertions.assertEquals(1, result.getErrors().size());
         Assertions.assertEquals("destination", result.getErrors().get(0).field());
@@ -73,7 +80,8 @@ class CommunicationScheduleTest {
 
     @Test
     void givenAInvalidNullMessage_whenCallNewInstance_thenThrowsBusinessValidationException() {
-        BusinessValidationException result = assertThrows(BusinessValidationException.class, () -> CommunicationSchedule.newInstance("destination", null, CommunicationScheduleType.SMS));
+        ZonedDateTime date = ZonedDateTime.parse("2024-09-10T10:15:00Z");
+        BusinessValidationException result = assertThrows(BusinessValidationException.class, () -> CommunicationSchedule.newInstance("destination", null, date, CommunicationScheduleType.SMS));
 
         Assertions.assertEquals(1, result.getErrors().size());
         Assertions.assertEquals("message", result.getErrors().get(0).field());
@@ -82,7 +90,8 @@ class CommunicationScheduleTest {
 
     @Test
     void givenAInvalidEmptyMessage_whenCallNewInstance_thenThrowsBusinessValidationException() {
-        BusinessValidationException result = assertThrows(BusinessValidationException.class, () -> CommunicationSchedule.newInstance("destination", "", CommunicationScheduleType.SMS));
+        ZonedDateTime date = ZonedDateTime.parse("2024-09-10T10:15:00Z");
+        BusinessValidationException result = assertThrows(BusinessValidationException.class, () -> CommunicationSchedule.newInstance("destination", "", date, CommunicationScheduleType.SMS));
 
         Assertions.assertEquals(1, result.getErrors().size());
         Assertions.assertEquals("message", result.getErrors().get(0).field());
@@ -91,7 +100,8 @@ class CommunicationScheduleTest {
 
     @Test
     void givenAInvalidBlankMessage_whenCallNewInstance_thenThrowsBusinessValidationException() {
-        BusinessValidationException result = assertThrows(BusinessValidationException.class, () -> CommunicationSchedule.newInstance("destination", " ", CommunicationScheduleType.SMS));
+        ZonedDateTime date = ZonedDateTime.parse("2024-09-10T10:15:00Z");
+        BusinessValidationException result = assertThrows(BusinessValidationException.class, () -> CommunicationSchedule.newInstance("destination", " ", date, CommunicationScheduleType.SMS));
 
         Assertions.assertEquals(1, result.getErrors().size());
         Assertions.assertEquals("message", result.getErrors().get(0).field());
@@ -101,7 +111,8 @@ class CommunicationScheduleTest {
     @Test
     void givenAInvalidMessageGreaterThan5000_whenCallNewInstance_thenThrowsBusinessValidationException() {
         String message = "a".repeat(5001);
-        BusinessValidationException result = assertThrows(BusinessValidationException.class, () -> CommunicationSchedule.newInstance("destination", message, CommunicationScheduleType.SMS));
+        ZonedDateTime date = ZonedDateTime.parse("2024-09-10T10:15:00Z");
+        BusinessValidationException result = assertThrows(BusinessValidationException.class, () -> CommunicationSchedule.newInstance("destination", message, date, CommunicationScheduleType.SMS));
 
         Assertions.assertEquals(1, result.getErrors().size());
         Assertions.assertEquals("message", result.getErrors().get(0).field());
@@ -111,7 +122,8 @@ class CommunicationScheduleTest {
     @Test
     void givenAInvalidMessageLessThan5_whenCallNewInstance_thenThrowsBusinessValidationException() {
         String message = "abcd ";
-        BusinessValidationException result = assertThrows(BusinessValidationException.class, () -> CommunicationSchedule.newInstance("destination", message, CommunicationScheduleType.SMS));
+        ZonedDateTime date = ZonedDateTime.parse("2024-09-10T10:15:00Z");
+        BusinessValidationException result = assertThrows(BusinessValidationException.class, () -> CommunicationSchedule.newInstance("destination", message, date, CommunicationScheduleType.SMS));
 
         Assertions.assertEquals(1, result.getErrors().size());
         Assertions.assertEquals("message", result.getErrors().get(0).field());
@@ -120,11 +132,21 @@ class CommunicationScheduleTest {
 
     @Test
     void givenAInvalidNullCommunicationType_whenCallNewInstance_thenThrowsBusinessValidationException() {
-        BusinessValidationException result = assertThrows(BusinessValidationException.class, () -> CommunicationSchedule.newInstance("destination", "message", null));
+        ZonedDateTime date = ZonedDateTime.parse("2024-09-10T10:15:00Z");
+        BusinessValidationException result = assertThrows(BusinessValidationException.class, () -> CommunicationSchedule.newInstance("destination", "message", date, null));
 
         Assertions.assertEquals(1, result.getErrors().size());
         Assertions.assertEquals("communicationType", result.getErrors().get(0).field());
         Assertions.assertEquals("CommunicationType is required", result.getErrors().get(0).message());
+    }
+
+    @Test
+    void givenAInvalidNullScheduleDate_whenCallNewInstance_thenThrowsBusinessValidationException() {
+        BusinessValidationException result = assertThrows(BusinessValidationException.class, () -> CommunicationSchedule.newInstance("destination", "message", null, CommunicationScheduleType.SMS));
+
+        Assertions.assertEquals(1, result.getErrors().size());
+        Assertions.assertEquals("scheduleDate", result.getErrors().get(0).field());
+        Assertions.assertEquals("Scheduledate is required", result.getErrors().get(0).message());
     }
 
 }

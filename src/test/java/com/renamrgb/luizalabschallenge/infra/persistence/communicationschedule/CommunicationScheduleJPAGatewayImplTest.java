@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.time.ZonedDateTime;
 import java.util.Optional;
 
 
@@ -39,10 +40,12 @@ class CommunicationScheduleJPAGatewayImplTest {
     void givenAValidCommunicationSchedule_whenSaveAndFindById_thenShouldFindTheSavedRecord() {
         String destination = "destination";
         String message = "message";
+        ZonedDateTime date = ZonedDateTime.parse("2024-09-10T10:15:00-03:00");
         CommunicationScheduleType communicationType = CommunicationScheduleType.SMS;
         CommunicationSchedule communicationSchedule = CommunicationSchedule.newInstance(
             destination,
             message,
+            date,
             communicationType
         );
 
