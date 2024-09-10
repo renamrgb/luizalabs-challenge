@@ -4,7 +4,7 @@ import java.util.Optional;
 
 public interface CommunicationSchedulerGateway {
 
-    void save(CommunicationSchedule communicationSchedule);
+    CommunicationSchedule save(CommunicationSchedule communicationSchedule);
 
     Optional<CommunicationSchedule> findById(Long id);
 }

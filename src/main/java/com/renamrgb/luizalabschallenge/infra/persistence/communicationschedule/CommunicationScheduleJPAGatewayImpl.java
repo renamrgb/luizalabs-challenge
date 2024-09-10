@@ -22,8 +22,8 @@ public class CommunicationScheduleJPAGatewayImpl implements CommunicationSchedul
 
     @Transactional
     @Override
-    public void save(final CommunicationSchedule communicationSchedule) {
-        communicationScheduleRepository.save(CommunicationScheduleJPAEntity.from(communicationSchedule));
+    public CommunicationSchedule save(final CommunicationSchedule communicationSchedule) {
+        return communicationScheduleRepository.save(CommunicationScheduleJPAEntity.from(communicationSchedule)).toDomain();
     }
 
     @Override
