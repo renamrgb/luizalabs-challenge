@@ -8,10 +8,11 @@ import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
+import static com.renamrgb.luizalabschallenge.application.constants.MessageConstants.NOT_FOUND_COMMUNICATION_MESSAGE;
+
 @Component
 public class FindCommunicationScheduleByIdUseCaseImpl implements FindCommunicationScheduleByIdUseCase {
 
-    private static final String NOT_FOUND_COMMUNICATION_MESSAGE = "Communication with id '%s' notfound";
 
     private final CommunicationSchedulerGateway communicationSchedulerGateway;
 

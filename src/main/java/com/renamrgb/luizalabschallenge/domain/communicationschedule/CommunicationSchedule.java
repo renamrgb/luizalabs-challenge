@@ -10,12 +10,12 @@ import java.util.List;
 
 public class CommunicationSchedule implements Serializable {
 
-    private Long id;
-    private String destination;
-    private String message;
-    private CommunicationScheduleType communicationType;
+    private final Long id;
+    private final String destination;
+    private final String message;
+    private final CommunicationScheduleType communicationType;
     private CommunicationScheduleStatus status;
-    private ZonedDateTime scheduleDate;
+    private final ZonedDateTime scheduleDate;
 
     private CommunicationSchedule(final Long id,
                                   final String destination,
@@ -101,7 +101,7 @@ public class CommunicationSchedule implements Serializable {
     }
 
     private void validateScheduleDateConstraints(List<ErrorMessage> errors) {
-        if(this.scheduleDate == null) {
+        if (this.scheduleDate == null) {
             errors.add(new ErrorMessage("scheduleDate", "Scheduledate is required"));
         }
     }
@@ -127,5 +127,9 @@ public class CommunicationSchedule implements Serializable {
                 errors.add(new ErrorMessage("message", "Message must be between 5 and 5000"));
             }
         }
+    }
+
+    public void markAsCanceled() {
+        this.status = CommunicationScheduleStatus.CANCELED;
     }
 }

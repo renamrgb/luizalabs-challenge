@@ -149,4 +149,23 @@ class CommunicationScheduleTest {
         Assertions.assertEquals("Scheduledate is required", result.getErrors().get(0).message());
     }
 
+    @Test
+    void givenAValidInstance_whenCallMarkAsCanceled_thenReturnInstanceCanceled() {
+        ZonedDateTime date = ZonedDateTime.parse("2024-09-10T10:15:00Z");
+
+        CommunicationSchedule communicationSchedule = CommunicationSchedule.of(1L,
+            "destination",
+            "message",
+            date,
+            CommunicationScheduleType.SMS,
+            CommunicationScheduleStatus.PENDING);
+
+        Assertions.assertEquals(CommunicationScheduleStatus.PENDING, communicationSchedule.getStatus());
+
+        communicationSchedule.markAsCanceled();
+
+        Assertions.assertEquals(CommunicationScheduleStatus.CANCELED, communicationSchedule.getStatus());
+    }
+
+
 }

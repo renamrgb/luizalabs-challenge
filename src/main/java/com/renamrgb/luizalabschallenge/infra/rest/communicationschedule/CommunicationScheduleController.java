@@ -2,18 +2,22 @@ package com.renamrgb.luizalabschallenge.infra.rest.communicationschedule;
 
 import com.renamrgb.luizalabschallenge.domain.communicationschedule.CommunicationSchedule;
 import com.renamrgb.luizalabschallenge.domain.communicationschedule.CommunicationScheduleType;
+import com.renamrgb.luizalabschallenge.domain.communicationschedule.usecase.CancelCommunicationScheduleUseCase;
 import com.renamrgb.luizalabschallenge.domain.communicationschedule.usecase.CreateCommunicationScheduleUseCase;
 import com.renamrgb.luizalabschallenge.domain.communicationschedule.usecase.FindCommunicationScheduleByIdUseCase;
 import com.renamrgb.luizalabschallenge.infra.rest.communicationschedule.dto.request.CreateCommunicationScheduleRequest;
 import com.renamrgb.luizalabschallenge.infra.rest.communicationschedule.dto.response.CreateCommunicationScheduleResponse;
 import com.renamrgb.luizalabschallenge.infra.rest.communicationschedule.dto.response.FindCommunicationScheduleResponse;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Objects;
@@ -26,12 +30,14 @@ public class CommunicationScheduleController {
 
     private final CreateCommunicationScheduleUseCase createCommunicationScheduleUseCase;
     private final FindCommunicationScheduleByIdUseCase findCommunicationScheduleByIdUseCase;
-
+    private final CancelCommunicationScheduleUseCase cancelCommunicationScheduleUseCase;
 
     public CommunicationScheduleController(final CreateCommunicationScheduleUseCase createCommunicationScheduleUseCase,
-                                           final FindCommunicationScheduleByIdUseCase findCommunicationScheduleByIdUseCase) {
+                                           final FindCommunicationScheduleByIdUseCase findCommunicationScheduleByIdUseCase,
+                                           final CancelCommunicationScheduleUseCase cancelCommunicationScheduleUseCase) {
         this.createCommunicationScheduleUseCase = Objects.requireNonNull(createCommunicationScheduleUseCase);
         this.findCommunicationScheduleByIdUseCase = Objects.requireNonNull(findCommunicationScheduleByIdUseCase);
+        this.cancelCommunicationScheduleUseCase = Objects.requireNonNull(cancelCommunicationScheduleUseCase);
     }
 
     @PostMapping
@@ -56,5 +62,11 @@ public class CommunicationScheduleController {
             communicationSchedule.getStatus(),
             communicationSchedule.getScheduleDate()
         ));
+    }
+
+    @PutMapping(value = "{id}/cancel")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void cancel(@PathVariable Long id) {
+        cancelCommunicationScheduleUseCase.execute(id);
     }
 }
