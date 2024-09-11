@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.renamrgb.luizalabschallenge.domain.communicationschedule.CommunicationSchedule;
 import com.renamrgb.luizalabschallenge.domain.communicationschedule.CommunicationScheduleStatus;
 import com.renamrgb.luizalabschallenge.domain.communicationschedule.CommunicationScheduleType;
+import com.renamrgb.luizalabschallenge.domain.communicationschedule.usecase.CancelCommunicationScheduleUseCase;
 import com.renamrgb.luizalabschallenge.domain.communicationschedule.usecase.CreateCommunicationScheduleUseCase;
 import com.renamrgb.luizalabschallenge.domain.communicationschedule.usecase.FindCommunicationScheduleByIdUseCase;
 import com.renamrgb.luizalabschallenge.infra.rest.communicationschedule.dto.request.CreateCommunicationScheduleRequest;
@@ -20,8 +21,7 @@ import java.time.format.DateTimeFormatter;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -35,6 +35,8 @@ class CommunicationScheduleControllerTest {
     private CreateCommunicationScheduleUseCase createCommunicationScheduleUseCase;
     @MockBean
     private FindCommunicationScheduleByIdUseCase findCommunicationScheduleByIdUseCase;
+    @MockBean
+    private CancelCommunicationScheduleUseCase cancelCommunicationScheduleUseCase;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -96,6 +98,17 @@ class CommunicationScheduleControllerTest {
             .andExpect(jsonPath("$.scheduleDate").value(formattedDate));
 
         verify(findCommunicationScheduleByIdUseCase).execute(1L);
+    }
+
+    @Test
+    void givenAValidId_whenCallCanceled_thenReturnNoContent() throws Exception {
+        doNothing().when(cancelCommunicationScheduleUseCase).execute(1L);
+
+        mockMvc.perform(put("/api/v1/communication/schedule/1/cancel")
+                .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isNoContent());
+
+        verify(cancelCommunicationScheduleUseCase).execute(1L);
     }
 }
 
