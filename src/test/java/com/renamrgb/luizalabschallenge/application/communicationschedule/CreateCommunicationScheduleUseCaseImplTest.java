@@ -45,7 +45,7 @@ class CreateCommunicationScheduleUseCaseImplTest {
 
         BusinessUnexpectedException result = Assertions.assertThrows(BusinessUnexpectedException.class, () -> useCase.execute(mock(CommunicationSchedule.class)));
 
-        Assertions.assertEquals("We had an internal problem, please try again later", result.getMessage());
+        Assertions.assertEquals("An unexpected failure has occurred. Please try again later.", result.getMessage());
 
     }
 }

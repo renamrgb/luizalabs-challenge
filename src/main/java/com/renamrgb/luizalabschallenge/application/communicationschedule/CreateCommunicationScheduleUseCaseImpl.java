@@ -12,11 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
 
+import static com.renamrgb.luizalabschallenge.application.constants.MessageConstants.UNEXPECTED_ERROR_MESSAGE;
+
 @Component
 public class CreateCommunicationScheduleUseCaseImpl implements CreateCommunicationScheduleUseCase {
 
     private static final Logger LOG = LoggerFactory.getLogger(CreateCommunicationScheduleUseCaseImpl.class);
-    private static final String UNEXPECTED_ERROR_MESSAGE = "We had an internal problem, please try again later";
 
     private final CommunicationSchedulerGateway communicationSchedulerGateway;
     private final EventEmitter eventEmitter;
