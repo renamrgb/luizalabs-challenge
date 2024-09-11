@@ -12,6 +12,8 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - luizalabs_network
 
   rabbitmq:
     image: rabbitmq:3-management
@@ -24,7 +26,39 @@ services:
       RABBITMQ_DEFAULT_PASS: rabbitpass
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - luizalabs_network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: luizalabs_app
+    environment:
+      DATASOURCE_URL: jdbc:postgresql://luizalabs_postgres:5432/luizalabs
+      DATASOURCE_USERNAME: postgressUser
+      DATASOURCE_PASSWORD: postgressPass
+      RABBITMQ_HOST: luizalabs_rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USERNAME: rabbituser
+      RABBITMQ_PASSWORD: rabbitpass
+      RABBITMQ_QUEUE_NAME: notifications.queue
+      RABBITMQ_EXCHANGE_NAME: notifications.exchange
+      RABBITMQ_ROUTING_KEY: notifications.routing.key
+      MAX_POLL_SIZE: 20
+      MIN_POLL_SIZE: 10
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+      - rabbitmq
+    networks:
+      - luizalabs_network
 
 volumes:
   postgres_data:
   rabbitmq_data:
+
+networks:
+  luizalabs_network:
+    driver: bridge
