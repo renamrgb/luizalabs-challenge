@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 @EnableRabbit
 public class RabbitMQConfig {
 
-    @Value("${rabbitmq.queue.name}")
+    @Value("${rabbitmq.queu e.name}")
     private String queueName;
 
     @Value("${rabbitmq.exchange.name}")
