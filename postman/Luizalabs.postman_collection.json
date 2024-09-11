@@ -1,0 +1,103 @@
+{
+	"info": {
+		"_postman_id": "0b57a8c6-a457-4489-95de-dd0696a93bc7",
+		"name": "Luizalabs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19233632"
+	},
+	"item": [
+		{
+			"name": "Create",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"destination\": \"renam@gustavo.com\",\r\n    \"message\": \"Mensagem de teste\",\r\n    \"communicationType\": \"SMS\",\r\n    \"scheduleDate\": \"2024-09-10T10:15:00Z\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/communication/schedule",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"communication",
+						"schedule"
+					]
+				},
+				"description": "Generated from cURL: curl --location 'localhost:8080/api/v1/communication/schedule' \\\r\n--header 'Content-Type: application/json' \\\r\n--data-raw '{\r\n    \"destination\": \"renam@gustavo.com\",\r\n    \"message\": \"Mensagem de teste\",\r\n    \"communicationType\": \"SMS\",\r\n    \"scheduleDate\": \"2024-09-10T10:15:00Z\"\r\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "FindById",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/v1/communication/schedule/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"communication",
+						"schedule",
+						"1"
+					]
+				},
+				"description": "Generated from cURL: curl --location 'localhost:8080/api/v1/communication/schedule' \\\r\n--header 'Content-Type: application/json' \\\r\n--data-raw '{\r\n    \"destination\": \"renam@gustavo.com\",\r\n    \"message\": \"Mensagem de teste\",\r\n    \"communicationType\": \"SMS\",\r\n    \"scheduleDate\": \"2024-09-10T10:15:00Z\"\r\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "cancel",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/v1/communication/schedule/1/cancel",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"communication",
+						"schedule",
+						"1",
+						"cancel"
+					]
+				},
+				"description": "Generated from cURL: curl --location 'localhost:8080/api/v1/communication/schedule' \\\r\n--header 'Content-Type: application/json' \\\r\n--data-raw '{\r\n    \"destination\": \"renam@gustavo.com\",\r\n    \"message\": \"Mensagem de teste\",\r\n    \"communicationType\": \"SMS\",\r\n    \"scheduleDate\": \"2024-09-10T10:15:00Z\"\r\n}'"
+			},
+			"response": []
+		}
+	]
+}
